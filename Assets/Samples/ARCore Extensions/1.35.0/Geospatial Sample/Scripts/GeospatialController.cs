@@ -230,6 +230,18 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
         private IEnumerator _startLocationService = null;
         private IEnumerator _asyncCheck = null;
 
+
+        /// 以下追加メンバ
+
+        [SerializeField] private double latitude;
+        [SerializeField] private double longitude;
+        [SerializeField] private Quaternion quaternion;
+
+        [SerializeField] private GameObject createModelPrefab;
+        private GameObject createModelObj;
+        
+        
+
         /// <summary>
         /// Callback handling "Get Started" button click event in Privacy Prompt.
         /// </summary>
@@ -511,6 +523,7 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
                 TerrainToggle.gameObject.SetActive(true);
                 ClearAllButton.gameObject.SetActive(_anchorObjects.Count > 0);
                 SnackBarText.text = _localizationSuccessMessage;
+                ShowModel();
                 foreach (var go in _anchorObjects)
                 {
                     var terrainState = go.GetComponent<ARGeospatialAnchor>().terrainAnchorState;
@@ -556,6 +569,18 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
             else
             {
                 InfoText.text = "GEOSPATIAL POSE: not tracking";
+            }
+        }
+
+        private void ShowModel()
+        {
+            if (createModelObj == null)
+            {
+                var earthTrackingState = EarthManager.EarthTrackingState;
+                var pose = earthTrackingState == TrackingState.Tracking ?
+                    EarthManager.CameraGeospatialPose : new GeospatialPose();
+                var anchor = AnchorManager.AddAnchor(latitude, longitude, pose.Altitude, quaternion);
+                createModelObj = Instantiate(createModelPrefab, anchor.transform);
             }
         }
 
