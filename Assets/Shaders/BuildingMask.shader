@@ -17,7 +17,9 @@ Shader "Custom/BuildingMask"
             struct appdata
             {
                 float4 vertex : UNITY_POSITION();
+                
 
+                
             };
             struct v2f
             {

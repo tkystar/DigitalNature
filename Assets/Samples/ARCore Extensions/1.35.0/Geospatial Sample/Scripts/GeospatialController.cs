@@ -17,6 +17,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using TMPro;
+using Unity.VisualScripting;
+
 namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 {
     using System;
@@ -233,15 +236,24 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 
         /// 以下追加メンバ
 
-        [SerializeField] private double latitude;
-        [SerializeField] private double longitude;
-        [SerializeField] private Quaternion quaternion;
+        public double latitude;
 
-        [SerializeField] private GameObject createModelPrefab;
+        public double longitude;
+
+        public double altitude;
+        public Quaternion quaternion;
+
+        public GameObject createModelPrefab;
         private GameObject createModelObj;
-        
-        
+        private Material buildingMaterial;
+        [SerializeField] private Slider alphaSlider;
 
+        [SerializeField] private AudioSource audio;
+/*
+        [SerializeField] private TextMeshProUGUI alitutudeText;
+        
+        [SerializeField] private Button enterText;
+*/
         /// <summary>
         /// Callback handling "Get Started" button click event in Privacy Prompt.
         /// </summary>
@@ -352,6 +364,11 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
             }
         }
 
+        private void Start()
+        {
+            //enterText.onClick.AddListener(EnterText);
+        }
+
         /// <summary>
         /// Unity's OnEnable() method.
         /// </summary>
@@ -412,6 +429,14 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 
             UpdateDebugInfo();
 
+            
+            if (createModelObj != null)
+            {
+                float alpha = alphaSlider.value;
+                buildingMaterial.color = new Color(1, 1, 1, alpha);
+            }
+
+            
             // Check session error status.
             LifecycleUpdate();
             if (_isReturning)
@@ -481,10 +506,11 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 
             // Check earth localization.
             bool isSessionReady = ARSession.state == ARSessionState.SessionTracking &&
-                Input.location.status == LocationServiceStatus.Running;
+                                  Input.location.status == LocationServiceStatus.Running;
             var earthTrackingState = EarthManager.EarthTrackingState;
-            var pose = earthTrackingState == TrackingState.Tracking ?
-                EarthManager.CameraGeospatialPose : new GeospatialPose();
+            var pose = earthTrackingState == TrackingState.Tracking
+                ? EarthManager.CameraGeospatialPose
+                : new GeospatialPose();
             if (!isSessionReady || earthTrackingState != TrackingState.Tracking ||
                 pose.OrientationYawAccuracy > _orientationYawAccuracyThreshold ||
                 pose.HorizontalAccuracy > _horizontalAccuracyThreshold)
@@ -524,6 +550,7 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
                 ClearAllButton.gameObject.SetActive(_anchorObjects.Count > 0);
                 SnackBarText.text = _localizationSuccessMessage;
                 ShowModel();
+                /*
                 foreach (var go in _anchorObjects)
                 {
                     var terrainState = go.GetComponent<ARGeospatialAnchor>().terrainAnchorState;
@@ -537,11 +564,12 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 
                     go.SetActive(true);
                 }
+                */
 
                 ResolveHistory();
             }
             else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began
-                && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                                          && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
                 // Set anchor on screen tap.
                 PlaceAnchorByScreenTap(Input.GetTouch(0).position);
@@ -551,20 +579,20 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
             if (earthTrackingState == TrackingState.Tracking)
             {
                 InfoText.text = string.Format(
-                "Latitude/Longitude: {1}°, {2}°{0}" +
-                "Horizontal Accuracy: {3}m{0}" +
-                "Altitude: {4}m{0}" +
-                "Vertical Accuracy: {5}m{0}" +
-                "Eun Rotation: {6}{0}" +
-                "Orientation Yaw Accuracy: {7}°",
-                Environment.NewLine,
-                pose.Latitude.ToString("F6"),
-                pose.Longitude.ToString("F6"),
-                pose.HorizontalAccuracy.ToString("F6"),
-                pose.Altitude.ToString("F2"),
-                pose.VerticalAccuracy.ToString("F2"),
-                pose.EunRotation.ToString("F1"),
-                pose.OrientationYawAccuracy.ToString("F1"));
+                    "Latitude/Longitude: {1}°, {2}°{0}" +
+                    "Horizontal Accuracy: {3}m{0}" +
+                    "Altitude: {4}m{0}" +
+                    "Vertical Accuracy: {5}m{0}" +
+                    "Eun Rotation: {6}{0}" +
+                    "Orientation Yaw Accuracy: {7}°",
+                    Environment.NewLine,
+                    pose.Latitude.ToString("F6"),
+                    pose.Longitude.ToString("F6"),
+                    pose.HorizontalAccuracy.ToString("F6"),
+                    pose.Altitude.ToString("F2"),
+                    pose.VerticalAccuracy.ToString("F2"),
+                    pose.EunRotation.ToString("F1"),
+                    pose.OrientationYawAccuracy.ToString("F1"));
             }
             else
             {
@@ -574,16 +602,20 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 
         private void ShowModel()
         {
-            if (createModelObj == null)
-            {
-                var earthTrackingState = EarthManager.EarthTrackingState;
-                var pose = earthTrackingState == TrackingState.Tracking ?
-                    EarthManager.CameraGeospatialPose : new GeospatialPose();
-                var anchor = AnchorManager.AddAnchor(latitude, longitude, pose.Altitude, quaternion);
-                createModelObj = Instantiate(createModelPrefab, anchor.transform);
-            }
+            audio.Play();
+            var anchor = AnchorManager.AddAnchor(latitude, longitude, altitude, quaternion);
+            createModelObj = Instantiate(createModelPrefab, anchor.transform);
+            //buildingMaterial = createModelObj.transform.Find("default").GetComponent<Material>();
+        }
+        
+        /*
+        private void EnterText()
+        {
+            var anchor = AnchorManager.AddAnchor(latitude, longitude, Convert.ToInt32(alitutudeText.text), quaternion);
+            createModelObj.transform.position = anchor.transform.position;
         }
 
+*/
         private IEnumerator CheckTerrainAnchorState(ARGeospatialAnchor anchor)
         {
             if (anchor == null || _anchorObjects == null)
@@ -651,19 +683,19 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
             {
                 // This history is from a previous app version and EunRotation was not used.
                 eunRotation =
-                    Quaternion.AngleAxis(180f - (float)history.Heading, Vector3.up);
+                    Quaternion.AngleAxis(180f - (float) history.Heading, Vector3.up);
             }
 
-            var anchor = terrain ?
-                AnchorManager.ResolveAnchorOnTerrain(
-                    history.Latitude, history.Longitude, 0, eunRotation) :
-                AnchorManager.AddAnchor(
+            var anchor = terrain
+                ? AnchorManager.ResolveAnchorOnTerrain(
+                    history.Latitude, history.Longitude, 0, eunRotation)
+                : AnchorManager.AddAnchor(
                     history.Latitude, history.Longitude, history.Altitude, eunRotation);
             if (anchor != null)
             {
-                GameObject anchorGO = terrain ?
-                    Instantiate(TerrainPrefab, anchor.transform) :
-                    Instantiate(GeospatialPrefab, anchor.transform);
+                GameObject anchorGO = terrain
+                    ? Instantiate(TerrainPrefab, anchor.transform)
+                    : Instantiate(GeospatialPrefab, anchor.transform);
                 anchor.gameObject.SetActive(!terrain);
                 _anchorObjects.Add(anchor.gameObject);
 
@@ -937,8 +969,9 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
             }
 
             var pose = EarthManager.EarthState == EarthState.Enabled &&
-                EarthManager.EarthTrackingState == TrackingState.Tracking ?
-                EarthManager.CameraGeospatialPose : new GeospatialPose();
+                       EarthManager.EarthTrackingState == TrackingState.Tracking
+                ? EarthManager.CameraGeospatialPose
+                : new GeospatialPose();
             var supported = EarthManager.IsGeospatialModeSupported(GeospatialMode.Enabled);
             DebugText.text =
                 $"IsReturning: {_isReturning}\n" +

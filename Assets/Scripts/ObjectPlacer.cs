@@ -26,7 +26,7 @@ public class ObjectPlacer : MonoBehaviour
     private void ObjectPlace()
     {
         RaycastHit hit;
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 20, Color.red);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10000, Color.red);
         if(Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward,out hit, Mathf.Infinity))
         {
             Instantiate(placedObject, hit.point, Quaternion.identity);
