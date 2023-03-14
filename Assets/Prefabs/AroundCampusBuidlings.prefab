@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8670651273692698015}
   - component: {fileID: 7819493941468827667}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fa0c2c704c0f04c18b3ed02d057f7098, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -483,6 +483,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3643971933279594920, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 82e87e1d079c84a10aa36a2855aaf702, type: 2}
     - target: {fileID: 5182812296074940746, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15717.2
