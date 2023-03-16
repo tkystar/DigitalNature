@@ -23,19 +23,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Base:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d7e5c0d955939c24598b47c9ba2a27a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metal:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1156752e22cd35444817062aebaa13f0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Nomal:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 046b1f0e72c8cad439e09470c47b2cbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Occlusion:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8125890cfb4b04e4da8355c85b9cdc9a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -58,7 +58,7 @@ Material:
     - _Cull: 0
     - _DstBlend: 0
     - _Noise: 2
-    - _Power: 0.2
+    - _Power: 0.006
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
