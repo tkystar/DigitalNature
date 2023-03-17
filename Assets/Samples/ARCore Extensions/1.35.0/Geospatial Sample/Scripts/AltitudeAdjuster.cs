@@ -27,7 +27,7 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
         // Start is called before the first frame update
         void Start()
         {
-            StartCoroutine(DebugStatus());
+            //StartCoroutine(DebugStatus());
         }
 
         private IEnumerator DebugStatus()
