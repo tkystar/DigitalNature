@@ -31,7 +31,8 @@ public class ObjectPlacer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shootButton.onClick.AddListener(ObjectPlace);
+        if(shootButton != null)
+        shootButton.onClick.AddListener(CastRay);
     }
 
     private void FixedUpdate()
@@ -40,17 +41,15 @@ public class ObjectPlacer : MonoBehaviour
     }
 
 
-    private void ObjectPlace()
+    private void CastRay()
     {
         
         RaycastHit hit;
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10000, Color.red);
         if(Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward,out hit, Mathf.Infinity))
         {
-            PlaySE(hitSE);
-            StartCoroutine(PlayParticle(hit));
-            GameObject instance = Instantiate(placedObject[Random.Range(0,placedObject.Length - 1)], hit.point, Quaternion.LookRotation(hit.normal));
-            PlayScaleAnimation(instance);
+            PlaceObject(hit.point, hit.normal);
+            StartCoroutine(PlayParticle(hit.point, hit.normal));
         }
         else
         {
@@ -58,9 +57,16 @@ public class ObjectPlacer : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayParticle(RaycastHit hit)
+    public void PlaceObject(Vector3 position, Vector3 direction)
     {
-        GameObject particle = Instantiate(particlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+        PlaySE(hitSE);
+        GameObject instance = Instantiate(placedObject[Random.Range(0,placedObject.Length - 1)], position, Quaternion.LookRotation(direction));
+        PlayScaleAnimation(instance);
+    }
+
+    public IEnumerator PlayParticle(Vector3 position, Vector3 direction)
+    {
+        GameObject particle = Instantiate(particlePrefab, position, Quaternion.LookRotation(direction));
         yield return new WaitForSeconds(1.0f);
         particle.transform.DOScale(Vector3.zero, 1.0f);
     }
