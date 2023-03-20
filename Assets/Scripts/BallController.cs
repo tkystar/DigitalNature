@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class BallController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
+        transform.Find("Trail").gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,5 +24,11 @@ public class BallController : MonoBehaviour
     public void AddForce(Vector3 launchVelocity)
     {
         rb.velocity = launchVelocity;
+        transform.Find("Trail").gameObject.SetActive(true);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        gameObject.SetActive(false);
     }
 }
