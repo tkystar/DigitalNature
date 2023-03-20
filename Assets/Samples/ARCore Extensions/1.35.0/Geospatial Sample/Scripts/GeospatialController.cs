@@ -249,11 +249,8 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
         [SerializeField] private Slider alphaSlider;
 
         [SerializeField] private AudioSource audio;
-/*
-        [SerializeField] private TextMeshProUGUI alitutudeText;
-        
-        [SerializeField] private Button enterText;
-*/
+
+
         /// <summary>
         /// Callback handling "Get Started" button click event in Privacy Prompt.
         /// </summary>
@@ -367,6 +364,7 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
         private void Start()
         {
             //enterText.onClick.AddListener(EnterText);
+            Instantiate(createModelPrefab);
         }
 
         /// <summary>
