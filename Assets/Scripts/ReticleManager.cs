@@ -44,7 +44,8 @@ public class ReticleManager : MonoBehaviour
 
     private void SetPosition(RaycastHit hit)
     {
-        reticle.transform.position = hit.point;
+        // あたった位置に生成すると建物と被ってしまうため、法線ベクトル方向に少しずらす
+        reticle.transform.position = hit.point + (hit.normal * 0.1f);
         reticle.transform.rotation = Quaternion.Slerp(reticle.transform.rotation, Quaternion.LookRotation(hit.normal), Time.deltaTime * 10.0f);
     }
 }

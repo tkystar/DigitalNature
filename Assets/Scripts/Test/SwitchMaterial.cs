@@ -19,8 +19,11 @@ public class SwitchMaterial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        materialSwitchToggle = GameObject.Find("SwitchMaterialToggle").GetComponent<Toggle>();
-        materialSwitchToggle.onValueChanged.AddListener(ChangedValue);
+        if (GameObject.Find("SwitchMaterialToggle") != null)
+        {
+            materialSwitchToggle = GameObject.Find("SwitchMaterialToggle").GetComponent<Toggle>();
+            materialSwitchToggle.onValueChanged.AddListener(ChangedValue);
+        }
     }
 
     // Update is called once per frame
