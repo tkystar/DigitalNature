@@ -23,8 +23,6 @@ public class ReticleManager : MonoBehaviour
         {
             Activate();
             SetPosition(hit);
-            Debug.Log(hit.collider.gameObject.name);
-            Debug.DrawRay(hit.point, hit.normal, Color.green);
             return;
         }
         

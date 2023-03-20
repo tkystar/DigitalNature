@@ -8,11 +8,19 @@ using DG.Tweening;
 using UnityEngine.Serialization;
 using Vector3 = UnityEngine.Vector3;
 
+public enum ObjectType
+{
+    Plants,
+    Neon
+}
 public class ObjectPlacer : MonoBehaviour
 {
-    // 置くオブジェクト
-    [SerializeField] private GameObject[] placedObject;
+    // 置く植物オブジェクト
+    [SerializeField] private GameObject[] placedPlants;
 
+    // 置くネオンオブジェクト
+    [SerializeField] private GameObject[] placedNeon;
+    
     // オブジェクトを置くボタン
     [SerializeField] private Button shootButton;
     
@@ -26,13 +34,22 @@ public class ObjectPlacer : MonoBehaviour
     // 生成パーティクル
     [SerializeField] private GameObject particlePrefab;
     
-   
+    // 生成オブジェクトのタイプ選別トグル
+    [SerializeField] private Toggle plantToggle;
+    [SerializeField] private Toggle neonToggle;
+
+
+    private ObjectType currentObjectType;
     
     // Start is called before the first frame update
     void Start()
     {
         if(shootButton != null)
         shootButton.onClick.AddListener(CastRay);
+
+        plantToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Plants;});
+        neonToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Neon;});
+
     }
 
     private void FixedUpdate()
@@ -59,9 +76,19 @@ public class ObjectPlacer : MonoBehaviour
 
     public void PlaceObject(Vector3 position, Vector3 direction)
     {
+        if (currentObjectType == ObjectType.Plants)
+        {
+            GameObject instance = Instantiate(placedPlants[Random.Range(0,placedPlants.Length)], position, Quaternion.LookRotation(direction));
+            PlayScaleAnimation(instance);
+        }
+        else if (currentObjectType == ObjectType.Neon)
+        {
+            GameObject instance = Instantiate(placedNeon[Random.Range(0,placedNeon.Length)], position, Quaternion.LookRotation(direction));
+            PlayScaleAnimation(instance);
+
+        }
+        
         PlaySE(hitSE);
-        GameObject instance = Instantiate(placedObject[Random.Range(0,placedObject.Length - 1)], position, Quaternion.LookRotation(direction));
-        PlayScaleAnimation(instance);
     }
 
     public IEnumerator PlayParticle(Vector3 position, Vector3 direction)
