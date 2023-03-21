@@ -16,7 +16,8 @@ public enum ObjectType
 public class ObjectPlacer : MonoBehaviour
 {
     // 置く植物オブジェクト
-    [SerializeField] private GameObject[] placedPlants;
+    [SerializeField] private GameObject[] buildingPlants;
+    [SerializeField] private GameObject[] groundPlants;
 
     // 置くネオンオブジェクト
     [SerializeField] private GameObject[] placedNeon;
@@ -28,7 +29,6 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] private AudioSource audio;
     
     // サウンドクリップ
-    [SerializeField] private AudioClip pushedButton;
     [SerializeField] private AudioClip hitSE;
     
     // 生成パーティクル
@@ -45,9 +45,8 @@ public class ObjectPlacer : MonoBehaviour
     void Start()
     {
         if(shootButton != null)
-        shootButton.onClick.AddListener(CastRay);
 
-        plantToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Plants;});
+            plantToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Plants;});
         neonToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Neon;});
 
     }
@@ -56,30 +55,23 @@ public class ObjectPlacer : MonoBehaviour
     {
        
     }
+    
 
-
-    private void CastRay()
-    {
-        
-        RaycastHit hit;
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10000, Color.red);
-        if(Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward,out hit, Mathf.Infinity))
-        {
-            PlaceObject(hit.point, hit.normal);
-            StartCoroutine(PlayParticle(hit.point, hit.normal));
-        }
-        else
-        {
-            PlaySE(pushedButton);
-        }
-    }
-
-    public void PlaceObject(Vector3 position, Vector3 direction)
+    public void PlaceObject(Vector3 position, Vector3 direction, CollisionPosition collisionPosition)
     {
         if (currentObjectType == ObjectType.Plants)
         {
-            GameObject instance = Instantiate(placedPlants[Random.Range(0,placedPlants.Length)], position, Quaternion.LookRotation(direction));
-            PlayScaleAnimation(instance);
+            if (collisionPosition == CollisionPosition.Building)
+            {
+                GameObject instance = Instantiate(buildingPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.LookRotation(direction));
+                PlayScaleAnimation(instance);
+            }
+            else if (collisionPosition == CollisionPosition.Ground)
+            {
+                GameObject instance = Instantiate(groundPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.LookRotation(direction));
+                PlayScaleAnimation(instance);
+            }
+            
         }
         else if (currentObjectType == ObjectType.Neon)
         {

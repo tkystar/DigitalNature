@@ -3,11 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CollisionPosition
+{
+    Building,
+    Ground
+}
+
 public class BallController : MonoBehaviour
 {
     private Rigidbody rb;
 
     private ObjectPlacer objectPlacer;
+
+    private CollisionPosition hitPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +47,15 @@ public class BallController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 生成処理
-        objectPlacer.PlaceObject(collision.contacts[0].point, - collision.contacts[0].normal);
+        if (collision.gameObject.tag == "Building")
+        {
+            objectPlacer.PlaceObject(collision.contacts[0].point, - collision.contacts[0].normal, CollisionPosition.Building);
+        }
+        else if (collision.gameObject.tag == "Ground")
+        {
+            objectPlacer.PlaceObject(collision.contacts[0].point, - collision.contacts[0].normal, CollisionPosition.Ground);
+        }
+        
         StartCoroutine(objectPlacer.PlayParticle(collision.contacts[0].point, - collision.contacts[0].normal));
 
         // 削除

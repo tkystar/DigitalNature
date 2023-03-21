@@ -5463,16 +5463,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c516b7a3d6441ecbf3e339371d487d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placedPlants:
-  - {fileID: 3473112313223595275, guid: c7161afd3d3c940f8ad1e1154db7ec5d, type: 3}
-  - {fileID: 7329996429644641238, guid: 1cde6e859e472429887a8546b4546239, type: 3}
-  - {fileID: 8927606019711690305, guid: 1adcfb771c5f7489bb429d4b6f704b0b, type: 3}
+  buildingPlants:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  groundPlants:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   placedNeon:
   - {fileID: 473778050957262642, guid: 28b0135107d8f401497a015ee63c7913, type: 3}
   - {fileID: 1893953035206474010, guid: d8445f060132e44b3bdff124523fe0d4, type: 3}
   shootButton: {fileID: 1491341767}
   audio: {fileID: 1761716602}
-  pushedButton: {fileID: 8300000, guid: 96999265fd82a41aa91ee164d19ab91b, type: 3}
   hitSE: {fileID: 8300000, guid: 98edee7a3601d4421844035c1274249f, type: 3}
   particlePrefab: {fileID: 1973975938160488600, guid: 5eb36d69cabbc45c1b8de577116a6d99, type: 3}
   plantToggle: {fileID: 1989491506}

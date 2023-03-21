@@ -507,6 +507,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 165.7
       objectReference: {fileID: 0}
+    - target: {fileID: 5494695249115556150, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184927906943248205, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6184927906943248205, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
+      propertyPath: m_TagString
+      value: Building
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
 --- !u!1 &47734039378029184 stripped
