@@ -480,8 +480,12 @@ PrefabInstance:
       value: NakanoCity
       objectReference: {fileID: 0}
     - target: {fileID: 3588489120863506927, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
+      propertyPath: m_Name
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588489120863506927, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3643971933279594920, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
       propertyPath: m_Enabled
@@ -531,6 +535,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47734039378029184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a2756c5782e4366803589d20032946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidMaterial: {fileID: 2100000, guid: e23dad9e19885422fafcdc2ce10e9f85, type: 2}
+  alphaMaterial: {fileID: 2100000, guid: 82e87e1d079c84a10aa36a2855aaf702, type: 2}
+--- !u!1 &1818828374250743035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5494695249115556150, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
+  m_PrefabInstance: {fileID: 6160030329744838093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1967783028801710851
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818828374250743035}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: a390d1c355f94491ea829bf9580dd217, type: 3}
+--- !u!114 &3069135568000609897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818828374250743035}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70a2756c5782e4366803589d20032946, type: 3}

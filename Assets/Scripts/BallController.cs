@@ -30,6 +30,10 @@ public class BallController : MonoBehaviour
     {
         rb.velocity = launchVelocity;
         transform.Find("Trail").gameObject.SetActive(true);
+        gameObject.transform.parent = null;
+        
+        // 削除
+        StartCoroutine(Destroy(10.0f));
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,13 +43,13 @@ public class BallController : MonoBehaviour
         StartCoroutine(objectPlacer.PlayParticle(collision.contacts[0].point, - collision.contacts[0].normal));
 
         // 削除
-        StartCoroutine(Destroy());
+        transform.Find("Trail").gameObject.SetActive(false);
+        StartCoroutine(Destroy(2.0f));
     }
 
-    private IEnumerator Destroy()
+    private IEnumerator Destroy(float time)
     {
-        transform.Find("Trail").gameObject.SetActive(false);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
 }

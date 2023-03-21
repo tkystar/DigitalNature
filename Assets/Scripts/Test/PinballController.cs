@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.Windows.WebCam;
+using UnityEngine.UI;
 
 public class PinballController : MonoBehaviour
 {
@@ -26,10 +26,13 @@ public class PinballController : MonoBehaviour
     public GameObject hitPointMarker;
 
     [SerializeField] private Transform instancePosition;
+
+    [SerializeField] private Button instanceButton;
     private void Start()
     {
         ballPosFromCam = instancePosition.localPosition;
         StartCoroutine(SetBall(0.1f));
+        instanceButton.onClick.AddListener(() => { StartCoroutine(SetBall(0.1f)); });
     }
 
     private void Update()
