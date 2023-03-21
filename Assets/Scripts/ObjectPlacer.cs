@@ -94,7 +94,7 @@ public class ObjectPlacer : MonoBehaviour
     {
         Vector3 originalScale = scaledObj.transform.localScale;
         scaledObj.transform.localScale = Vector3.zero;
-        scaledObj.transform.DOScale(originalScale, 1f).SetEase(Ease.InCubic);
+        scaledObj.transform.DOScale(Random.Range(0.8f, 1.2f) * originalScale, 1f).SetEase(Ease.InCubic);
     }
 
     private void PlaySE(AudioClip clip)
