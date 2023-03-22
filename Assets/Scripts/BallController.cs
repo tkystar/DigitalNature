@@ -55,7 +55,12 @@ public class BallController : MonoBehaviour
         {
             objectPlacer.PlaceObject(collision.contacts[0].point, - collision.contacts[0].normal, CollisionPosition.Ground);
         }
-        
+        else
+        {
+            return;
+        }
+
+        UnActive();
         StartCoroutine(objectPlacer.PlayParticle(collision.contacts[0].point, - collision.contacts[0].normal));
 
         // 削除
@@ -67,5 +72,11 @@ public class BallController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
+    }
+
+    // 一度接触した場合当たり判定をoffにする
+    private void UnActive()
+    {
+        gameObject.GetComponent<SphereCollider>().enabled = false;
     }
 }

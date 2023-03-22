@@ -345,6 +345,7 @@ MonoBehaviour:
   force: 100
   hitPointMarker: {fileID: 1227090123}
   instancePosition: {fileID: 203103210}
+  instanceButton: {fileID: 0}
 --- !u!4 &834893286
 Transform:
   m_ObjectHideFlags: 0
