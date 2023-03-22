@@ -11,7 +11,8 @@ using Vector3 = UnityEngine.Vector3;
 public enum ObjectType
 {
     Plants,
-    Neon
+    Neon,
+    Signage
 }
 public class ObjectPlacer : MonoBehaviour
 {
@@ -39,15 +40,15 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField] private Toggle neonToggle;
 
 
-    private ObjectType currentObjectType;
+    public ObjectType CurrentObjectType;
     
     // Start is called before the first frame update
     void Start()
     {
         if(shootButton != null)
 
-            plantToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Plants;});
-        neonToggle.onValueChanged.AddListener((isOn) => { currentObjectType = ObjectType.Neon;});
+            plantToggle.onValueChanged.AddListener((isOn) => { CurrentObjectType = ObjectType.Plants;});
+        neonToggle.onValueChanged.AddListener((isOn) => { CurrentObjectType = ObjectType.Neon;});
 
     }
 
@@ -59,7 +60,7 @@ public class ObjectPlacer : MonoBehaviour
 
     public void PlaceObject(Vector3 position, Vector3 direction, CollisionPosition collisionPosition)
     {
-        if (currentObjectType == ObjectType.Plants)
+        if (CurrentObjectType == ObjectType.Plants)
         {
             if (collisionPosition == CollisionPosition.Building)
             {
@@ -73,7 +74,7 @@ public class ObjectPlacer : MonoBehaviour
             }
             
         }
-        else if (currentObjectType == ObjectType.Neon)
+        else if (CurrentObjectType == ObjectType.Neon)
         {
             GameObject instance = Instantiate(placedNeon[Random.Range(0,placedNeon.Length)], position, Quaternion.LookRotation(direction));
             PlayScaleAnimation(instance);

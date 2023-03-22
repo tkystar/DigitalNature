@@ -31,7 +31,7 @@ public class PinballController : MonoBehaviour
     private void Start()
     {
         ballPosFromCam = instancePosition.localPosition;
-        StartCoroutine(SetBall(0.1f));
+        //StartCoroutine(SetBall(0.1f));
         instanceButton.onClick.AddListener(() => { StartCoroutine(SetBall(0.1f)); });
     }
 

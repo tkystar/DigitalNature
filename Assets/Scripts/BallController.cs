@@ -39,7 +39,6 @@ public class BallController : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(pos, dir, Color.green);
-        Debug.Log(pos + "," + dir);
     }
 
     public void AddForce(Vector3 launchVelocity)
