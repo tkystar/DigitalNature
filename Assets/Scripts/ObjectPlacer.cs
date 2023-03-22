@@ -68,7 +68,7 @@ public class ObjectPlacer : MonoBehaviour
             }
             else if (collisionPosition == CollisionPosition.Ground)
             {
-                GameObject instance = Instantiate(groundPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.LookRotation(direction));
+                GameObject instance = Instantiate(groundPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.identity);
                 PlayScaleAnimation(instance);
             }
             

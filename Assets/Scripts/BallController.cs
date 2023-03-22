@@ -16,6 +16,12 @@ public class BallController : MonoBehaviour
     private ObjectPlacer objectPlacer;
 
     private CollisionPosition hitPosition;
+    
+    
+    // debug
+    private Vector3 pos;
+
+    private Vector3 dir;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +29,7 @@ public class BallController : MonoBehaviour
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         transform.Find("Trail").gameObject.SetActive(false);
+
         
         // 生成クラス
         objectPlacer = GameObject.Find("ObjectPlacer").GetComponent<ObjectPlacer>();
@@ -31,7 +38,8 @@ public class BallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.DrawRay(pos, dir, Color.green);
+        Debug.Log(pos + "," + dir);
     }
 
     public void AddForce(Vector3 launchVelocity)
@@ -62,7 +70,8 @@ public class BallController : MonoBehaviour
 
         UnActive();
         StartCoroutine(objectPlacer.PlayParticle(collision.contacts[0].point, - collision.contacts[0].normal));
-
+        pos = collision.contacts[0].point;
+        dir = collision.contacts[0].normal;
         // 削除
         transform.Find("Trail").gameObject.SetActive(false);
         StartCoroutine(Destroy(2.0f));
