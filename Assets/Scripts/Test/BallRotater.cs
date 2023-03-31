@@ -8,30 +8,27 @@ using UnityEngine.Serialization;
 
 public enum BallType
 {
-    Plants,
-    Neon,
+    PlantBall,
+    NeonBall,
     Signage
 }
 public class BallRotater : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
-    [FormerlySerializedAs("redBall")] [SerializeField] private GameObject[] ball;
-
-    private int currentSelectedBallNum;
-    
-    // 発射ボールの正常な大きさ
-    private Vector3 originalScale;
     
     // ボールが左右に移動する単位
     public float moveUnit;
 
     [SerializeField] private ObjectPlacer objectPlacer;
+
+    [SerializeField] private GameObject parentBall;
+
+    public BallType SelectedBallType;
+    
     // Start is called before the first frame update
     void Start()
     {
-        currentSelectedBallNum = 1;
-        originalScale = ball[0].transform.localScale;
-        InitializeScale();
+        SelectedBallType = BallType.PlantBall;
     }
 
     // Update is called once per frame
@@ -39,93 +36,84 @@ public class BallRotater : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            for (int i = 0; i < ball.Length; i++)
+            if (SelectedBallType == BallType.PlantBall)
             {
-                if (ball[i].transform.Find("model").GetComponent<Collider>().Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity))
+                if (GameObject.FindWithTag("NeonBall").GetComponent<Collider>().Raycast(
+                        mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitNeonBall01, Mathf.Infinity))
                 {
-                    Rotate(i);
-                    Debug.Log("i : " + i);
+                    Slide(BallType.NeonBall);
                 }
             }
-            
+
+            if (SelectedBallType == BallType.NeonBall)
+            {
+                if (GameObject.FindWithTag("PlantBall").GetComponent<Collider>().Raycast(
+                        mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitPlantsBall01,
+                        Mathf.Infinity))
+                {
+                    Slide(BallType.PlantBall);
+                }
+            }
+
         }
+        
+        /*
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (GameObject.FindWithTag("PlantBall").GetComponent<Collider>().Raycast(
+                    mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitPlantsBall02, Mathf.Infinity))
+            {
+                SelectedBallType = BallType.PlantBall;
+
+            }
+            else if (GameObject.FindWithTag("NeonBall").GetComponent<Collider>().Raycast(
+                         mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitNeonBall02, Mathf.Infinity))
+            {
+                SelectedBallType = BallType.NeonBall;
+
+            }
+        }
+        */
+
     }
 
-    private void InitializeScale()
+    
+    
+
+    private void Slide(BallType ballType)
     {
-        // 選択されたボールのみサイズを拡大
-        for (int i = 0; i < ball.Length; i++)
+        if (ballType == BallType.PlantBall)
         {
-            if (i == currentSelectedBallNum)
-            {
-                ball[i].transform.DOScale(originalScale, 0.3f);
-            }
-            else
-            {
-                ball[i].transform.DOScale(originalScale * 0.7f, 0.3f);
-            }
+            parentBall.transform.DOLocalMoveX( parentBall.transform.localPosition.x + moveUnit, 0.3f);
+            StartCoroutine(Set(ballType));
         }
-    }
-
-    private void Rotate(int i)
-    {
-        if (i < currentSelectedBallNum)
+        else if (ballType == BallType.NeonBall)
         {
-            for (int j = 0; j < ball.Length; j++)
-            {
-                ball[j].transform.DOLocalMoveX( ball[j].transform.localPosition.x + (moveUnit * Math.Abs( i - currentSelectedBallNum)), 0.3f);
-                
-                // 選択されたボールのみサイズを拡大
-                if (j == i)
-                {
-                    ball[j].transform.DOScale(originalScale, 0.3f);
-                }
-                else
-                {
-                    ball[j].transform.DOScale(originalScale * 0.7f, 0.3f);
+            parentBall.transform.DOLocalMoveX( parentBall.transform.localPosition.x - moveUnit, 0.3f);
+            StartCoroutine(Set(ballType));
 
-                }
-            }
         }
-        else
-        {
-            for (int j = 0; j < ball.Length; j++)
-            {
-                ball[j].transform.DOLocalMoveX(ball[j].transform.localPosition.x - (moveUnit * Math.Abs( i - currentSelectedBallNum)), 0.3f);
-                
-                // 選択されたボールのみサイズを拡大
-                if (j == i)
-                {
-                    ball[j].transform.DOScale(originalScale, 0.3f);
-                }
-                else
-                {
-                    ball[j].transform.DOScale(originalScale * 0.7f, 0.3f);
-
-                }
-            }
-        }
-
-        Set(i);
+        
+        
 
     }
 
 
-    private void Set(int i)
+    private IEnumerator Set(BallType ballType)
     {
-        currentSelectedBallNum = i;
-        if (i == 1)
+        if (ballType == BallType.PlantBall)
         {
             objectPlacer.CurrentObjectType = ObjectType.Plants;
         }
-        else if (i == 2)
+        else if (ballType == BallType.NeonBall)
         {
             objectPlacer.CurrentObjectType = ObjectType.Neon;
         }
-        else if (i == 3)
-        {
-            objectPlacer.CurrentObjectType = ObjectType.Signage;
-        }
+        
+        
+        yield return new WaitForSeconds(0.1f);
+        SelectedBallType = ballType;
+
     }
     
     

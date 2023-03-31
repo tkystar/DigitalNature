@@ -15,6 +15,8 @@ public class BallController : MonoBehaviour
 
     private ObjectPlacer objectPlacer;
 
+    private BallRotater ballRotater;
+
     private CollisionPosition hitPosition;
     
     
@@ -22,6 +24,21 @@ public class BallController : MonoBehaviour
     private Vector3 pos;
 
     private Vector3 dir;
+
+    private PinballGenerator pinballGenerator;
+    
+    private GameObject ballInstance;
+
+    public bool isDragging = false;
+    public Vector3 initialPosition;
+    private Vector3 dragStartPosition;
+    private Vector3 dragEndPosition;
+    public Vector3 launchVelocity;
+
+    public Vector3 BallPosFromCam;
+
+    public float force;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +50,56 @@ public class BallController : MonoBehaviour
         
         // 生成クラス
         objectPlacer = GameObject.Find("ObjectPlacer").GetComponent<ObjectPlacer>();
+
+        pinballGenerator = GameObject.Find("PinballController").GetComponent<PinballGenerator>();
+
+        ballRotater = GameObject.Find("BallRotater").GetComponent<BallRotater>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(pos, dir, Color.green);
+        if(!gameObject.CompareTag(ballRotater.SelectedBallType.ToString()))
+        {
+            return;
+        }
+        
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (GetComponent<Collider>().Raycast(pinballGenerator.mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity))
+            {
+                isDragging = true;
+                initialPosition = transform.position;
+            }
+        }
+        
+        if (isDragging)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x,
+                GetPlayerHitPoint().y, transform.localPosition.z);
+            launchVelocity = pinballGenerator.mainCamera.transform.forward *
+                             (transform.position - initialPosition).magnitude * force;
+
+            //hitPointMarker.GetComponent<hitPointMarker>().SetPosition();
+
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                isDragging = false;
+                dragEndPosition =
+                    pinballGenerator.mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+                dragEndPosition.y = initialPosition.y;
+                launchVelocity = pinballGenerator.mainCamera.transform.forward *
+                                 (transform.position - initialPosition).magnitude * force;
+                if (launchVelocity == Vector3.zero) return;
+
+                // 発射させる
+                AddForce(launchVelocity);
+                gameObject.tag = "Untagged";
+                StartCoroutine(pinballGenerator.SetBall(1.0f));
+            }
+        }
     }
 
     public void AddForce(Vector3 launchVelocity)
@@ -86,5 +147,39 @@ public class BallController : MonoBehaviour
     private void UnActive()
     {
         gameObject.GetComponent<SphereCollider>().enabled = false;
+    }
+    
+    private Vector3 GetPlayerHitPoint()
+    {
+        Ray ray = pinballGenerator.mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        
+        if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
+        {
+            // 初期生成位置よりも上に行ったら(逆方向に引っ張ったら)
+            if (hit.point.y >= initialPosition.y)
+            {
+                return BallPosFromCam;
+            }
+            //return hit.point;
+            return pinballGenerator.BallParent.transform.InverseTransformPoint(hit.point);
+        }
+        
+        // 次のレイを発射するために、当たった位置から先を飛ばす
+        ray = new Ray(hit.point + (ray.direction * 0.01f), ray.direction);
+        if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
+        {
+            // 初期生成位置よりも上に行ったら(逆方向に引っ張ったら)
+            if (hit.point.y >= initialPosition.y)
+            {
+                return BallPosFromCam;
+            }
+            
+            //return hit.point;
+            return pinballGenerator.BallParent.transform.InverseTransformPoint(hit.point);
+
+        }
+        
+        return BallPosFromCam;
     }
 }

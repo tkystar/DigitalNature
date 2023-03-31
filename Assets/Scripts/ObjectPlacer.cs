@@ -23,9 +23,6 @@ public class ObjectPlacer : MonoBehaviour
     // 置くネオンオブジェクト
     [SerializeField] private GameObject[] placedNeon;
     
-    // オブジェクトを置くボタン
-    [SerializeField] private Button shootButton;
-    
     // シュートボタンを押した時のAudioSorce
     [SerializeField] private AudioSource audio;
     
@@ -34,22 +31,13 @@ public class ObjectPlacer : MonoBehaviour
     
     // 生成パーティクル
     [SerializeField] private GameObject particlePrefab;
-    
-    // 生成オブジェクトのタイプ選別トグル
-    [SerializeField] private Toggle plantToggle;
-    [SerializeField] private Toggle neonToggle;
-
+   
 
     public ObjectType CurrentObjectType;
     
     // Start is called before the first frame update
     void Start()
     {
-        if(shootButton != null)
-
-            plantToggle.onValueChanged.AddListener((isOn) => { CurrentObjectType = ObjectType.Plants;});
-        neonToggle.onValueChanged.AddListener((isOn) => { CurrentObjectType = ObjectType.Neon;});
-
     }
 
     private void FixedUpdate()
@@ -69,7 +57,7 @@ public class ObjectPlacer : MonoBehaviour
             }
             else if (collisionPosition == CollisionPosition.Ground)
             {
-                GameObject instance = Instantiate(groundPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.identity);
+                GameObject instance = Instantiate(groundPlants[Random.Range(0,groundPlants.Length)], position, Quaternion.identity);
                 PlayScaleAnimation(instance);
             }
             

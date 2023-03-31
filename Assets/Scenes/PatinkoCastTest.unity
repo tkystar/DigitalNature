@@ -188,12 +188,59 @@ MonoBehaviour:
   - {fileID: 3765487396446770952, guid: 800d0b8cd95e04a91abf7e0b1684cb2f, type: 3}
   - {fileID: 6743086270741394967, guid: 4c4f2991edac7472abe55104f280c846, type: 3}
   - {fileID: 7396792604989011659, guid: 6f2e5a52326f842d68396953077c5619, type: 3}
-  shootButton: {fileID: 0}
   audio: {fileID: 635315484}
   hitSE: {fileID: 8300000, guid: 1dfa9f01b364c43638f6076f6074dd6c, type: 3}
   particlePrefab: {fileID: 3434798626374683764, guid: 6db782e97d5184e94b9fc4d2a88a6844, type: 3}
-  plantToggle: {fileID: 0}
-  neonToggle: {fileID: 0}
+  CurrentObjectType: 0
+--- !u!1 &261875528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261875529}
+  - component: {fileID: 261875530}
+  m_Layer: 0
+  m_Name: BallRotater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &261875529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261875528}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 635315483}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &261875530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261875528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07fbe6b610d7c4269a6bdb0ee2849fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1069219278}
+  moveUnit: 0.07
+  objectPlacer: {fileID: 32921921}
+  parentBall: {fileID: 9045176487043460260}
+  SelectedBallType: 0
 --- !u!1 &280168502
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +439,7 @@ Transform:
   - {fileID: 1773326173}
   - {fileID: 32921920}
   - {fileID: 2013724297}
+  - {fileID: 261875529}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -574,6 +622,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2060296765}
+  - {fileID: 9045176487043460261}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 43.866, y: -236.16, z: 0.198}
@@ -869,6 +918,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32de7fe42d86c4f7ea1ed3a4c27eb5cc, type: 3}
+--- !u!1 &1275105599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275105600}
+  m_Layer: 0
+  m_Name: InstancePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1275105600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275105599}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.023099422, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9045176487043460261}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395919150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,7 +1255,7 @@ GameObject:
   - component: {fileID: 2013724297}
   - component: {fileID: 2013724298}
   m_Layer: 0
-  m_Name: Patinko
+  m_Name: PinballController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1208,13 +1288,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967cdc9bc9e4a437c9a505eaf52935bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 8100007248859104570, guid: 3c28ab74874d24257b882c15cb6b64f4, type: 3}
+  selectedBallPrefab: {fileID: 0}
   mainCamera: {fileID: 1069219278}
+  isDragging: 0
+  initialPosition: {x: 0, y: 0, z: 0}
   launchVelocity: {x: 0, y: 0, z: 0}
   force: 1000
-  hitPointMarker: {fileID: 1973975938160488600, guid: 5eb36d69cabbc45c1b8de577116a6d99, type: 3}
-  instancePosition: {fileID: 2060296764}
-  instanceButton: {fileID: 0}
+  instancePosition: {fileID: 1275105600}
+  BallParent: {fileID: 9045176487043460261}
+  BallRotater: {fileID: 261875530}
+  PlantBallPrefab: {fileID: 6269219277355961937, guid: 3f477da7435664f81a52df355afb8042, type: 3}
+  NeonBallPrefab: {fileID: 4847992551312022289, guid: 6bbe9224dd7cf4a25814bce76e0cd706, type: 3}
 --- !u!1001 &2060296763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1272,11 +1356,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ade36c6d69ace4937a92e13df95c7a8a, type: 3}
---- !u!4 &2060296764 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7117661643370346953, guid: ade36c6d69ace4937a92e13df95c7a8a, type: 3}
-  m_PrefabInstance: {fileID: 2060296763}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2060296765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7854887717761051286, guid: ade36c6d69ace4937a92e13df95c7a8a, type: 3}
@@ -1473,3 +1552,35 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &9045176487043460260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9045176487043460261}
+  m_Layer: 0
+  m_Name: InitialBall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9045176487043460261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045176487043460260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.12609959, z: 0.3380003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1275105600}
+  m_Father: {fileID: 1069219279}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

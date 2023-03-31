@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProjectileSimulator : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class ProjectileSimulator : MonoBehaviour
     private Vector3 initialVelocity;
     private bool isSimulating = false;
 
-    public PinballController PinballController;
+    [FormerlySerializedAs("PinballController")] public PinballGenerator _pinballGenerator;
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class ProjectileSimulator : MonoBehaviour
             isSimulating = true;
 
             // AddForceで与える力
-            Vector3 force = PinballController.launchVelocity;
+            Vector3 force = _pinballGenerator.launchVelocity;
 
             // velocityに力を加える
             rb.velocity += force / rb.mass;
