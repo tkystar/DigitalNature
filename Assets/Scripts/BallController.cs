@@ -35,10 +35,13 @@ public class BallController : MonoBehaviour
     private Vector3 dragEndPosition;
     public Vector3 launchVelocity;
 
-    public Vector3 BallPosFromCam;
+    //public Vector3 BallPosFromCam;
 
     public float force;
 
+    private GUIStyle style;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -54,8 +57,19 @@ public class BallController : MonoBehaviour
         pinballGenerator = GameObject.Find("PinballController").GetComponent<PinballGenerator>();
 
         ballRotater = GameObject.Find("BallRotater").GetComponent<BallRotater>();
+        
+        // デバッグ用
+        style = new GUIStyle();
+        style.fontSize = 30;
     }
 
+    void OnGUI()
+    {
+        GUI.Label (new Rect (300, 300, 500, 100), gameObject.transform.position.ToString(), style); //テキスト表示
+        
+    }
+    
+    
     // Update is called once per frame
     void Update()
     {
@@ -76,8 +90,10 @@ public class BallController : MonoBehaviour
         
         if (isDragging)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x,
-                GetPlayerHitPoint().y, transform.localPosition.z);
+            //transform.localPosition = new Vector3(transform.localPosition.x,
+             //   GetPlayerHitPoint().y, transform.localPosition.z);
+             transform.position = new Vector3(transform.position.x,
+                 GetPlayerHitPoint().y, transform.position.z);
             launchVelocity = pinballGenerator.mainCamera.transform.forward *
                              (transform.position - initialPosition).magnitude * force;
 
@@ -104,6 +120,9 @@ public class BallController : MonoBehaviour
 
     public void AddForce(Vector3 launchVelocity)
     {
+        // 発射後はコリジョン判定をon 
+        GetComponent<Collider>().isTrigger = false;
+        
         rb.velocity = launchVelocity;
         transform.Find("Trail").gameObject.SetActive(true);
         gameObject.transform.parent = null;
@@ -136,6 +155,7 @@ public class BallController : MonoBehaviour
         transform.Find("Trail").gameObject.SetActive(false);
         StartCoroutine(Destroy(2.0f));
     }
+    
 
     private IEnumerator Destroy(float time)
     {
@@ -151,18 +171,20 @@ public class BallController : MonoBehaviour
     
     private Vector3 GetPlayerHitPoint()
     {
+        
         Ray ray = pinballGenerator.mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
         if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
         {
             // 初期生成位置よりも上に行ったら(逆方向に引っ張ったら)
-            if (hit.point.y >= initialPosition.y)
+            if (hit.point.y > initialPosition.y)
             {
-                return BallPosFromCam;
+                return initialPosition;
             }
             //return hit.point;
-            return pinballGenerator.BallParent.transform.InverseTransformPoint(hit.point);
+            //return pinballGenerator.BallParent.transform.InverseTransformPoint(hit.point);
+            return hit.point;
         }
         
         // 次のレイを発射するために、当たった位置から先を飛ばす
@@ -170,16 +192,16 @@ public class BallController : MonoBehaviour
         if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Player"))
         {
             // 初期生成位置よりも上に行ったら(逆方向に引っ張ったら)
-            if (hit.point.y >= initialPosition.y)
+            if (hit.point.y > initialPosition.y)
             {
-                return BallPosFromCam;
+                return initialPosition;
             }
             
-            //return hit.point;
-            return pinballGenerator.BallParent.transform.InverseTransformPoint(hit.point);
+            return hit.point;
+            //return pinballGenerator.BallParent.transform.InverseTransformPoint(hit.point);
 
         }
         
-        return BallPosFromCam;
+        return transform.position;
     }
 }
