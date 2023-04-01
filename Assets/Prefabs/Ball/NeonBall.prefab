@@ -1405,7 +1405,6 @@ MonoBehaviour:
   isDragging: 0
   initialPosition: {x: 0, y: 0, z: 0}
   launchVelocity: {x: 0, y: 0, z: 0}
-  BallPosFromCam: {x: 0, y: 0, z: 0}
   force: 1000
 --- !u!1 &5740998184858418187
 GameObject:

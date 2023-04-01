@@ -405,10 +405,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: AroundCampusBuidlings
       objectReference: {fileID: 0}
+    - target: {fileID: 7488694361028125797, guid: 00a2f3078883a4b92b4144acb1d4e509, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d949418c4adc84e71aec0a0554396ea2, type: 2}
     - target: {fileID: 8535791950009944536, guid: 00a2f3078883a4b92b4144acb1d4e509, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9113452511792130590, guid: 00a2f3078883a4b92b4144acb1d4e509, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d949418c4adc84e71aec0a0554396ea2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a2f3078883a4b92b4144acb1d4e509, type: 3}
 --- !u!1 &635315481
