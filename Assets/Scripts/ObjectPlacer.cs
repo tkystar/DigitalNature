@@ -34,6 +34,8 @@ public class ObjectPlacer : MonoBehaviour
    
 
     public ObjectType CurrentObjectType;
+
+    [SerializeField] private GameObject parent;
     
     // Start is called before the first frame update
     void Start()
@@ -52,19 +54,19 @@ public class ObjectPlacer : MonoBehaviour
         {
             if (collisionPosition == CollisionPosition.Building)
             {
-                GameObject instance = Instantiate(buildingPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.LookRotation(direction));
+                GameObject instance = Instantiate(buildingPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.LookRotation(direction), parent.transform);
                 PlayScaleAnimation(instance);
             }
             else if (collisionPosition == CollisionPosition.Ground)
             {
-                GameObject instance = Instantiate(groundPlants[Random.Range(0,groundPlants.Length)], position, Quaternion.identity);
+                GameObject instance = Instantiate(groundPlants[Random.Range(0,groundPlants.Length)], position, Quaternion.identity, parent.transform);
                 PlayScaleAnimation(instance);
             }
             
         }
         else if (CurrentObjectType == ObjectType.Neon)
         {
-            GameObject instance = Instantiate(placedNeon[Random.Range(0,placedNeon.Length)], position, Quaternion.LookRotation(direction));
+            GameObject instance = Instantiate(placedNeon[Random.Range(0,placedNeon.Length)], position, Quaternion.LookRotation(direction), parent.transform);
             PlayScaleAnimation(instance);
 
         }

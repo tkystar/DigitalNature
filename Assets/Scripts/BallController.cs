@@ -63,13 +63,7 @@ public class BallController : MonoBehaviour
         style.fontSize = 30;
     }
 
-    void OnGUI()
-    {
-        GUI.Label (new Rect (300, 300, 500, 100), gameObject.transform.position.ToString(), style); //テキスト表示
-        
-    }
-    
-    
+   
     // Update is called once per frame
     void Update()
     {
