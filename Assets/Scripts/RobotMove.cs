@@ -8,47 +8,35 @@ public class RobotMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private GameObject startPosition;
 
-    [SerializeField] private GameObject rangeObjectMaxX;
+    [SerializeField] private GameObject camera;
 
-    [SerializeField] private GameObject rangeObjectMiniX;
-
-    [SerializeField] private GameObject rangeObjectMaxZ;
-
-    [SerializeField] private GameObject rangeObjectMiniZ;
-
-    [SerializeField] private GameObject Camera;
-
-    [SerializeField] private GameObject robot;
-
-    private float rangePositionMaxX;
-
-    private float rangePositionMiniX;
-
-    private float rangePositionMaxZ;
-
-    private float rangePositionMiniZ;
+    private float distanceRobot;
+    
     // Update is called once per frame
     private void Start()
     {
-        rangePositionMaxX = rangeObjectMaxX.transform.localPosition.x;
-        rangePositionMiniX = rangeObjectMiniX.transform.localPosition.x;
-        rangePositionMaxZ = rangeObjectMaxZ.transform.localPosition.z;
-        rangePositionMiniZ = rangeObjectMiniZ.transform.localPosition.z;
+        
     }
 
     void Update()
     {
-        Instantiate(robot);
         Transform transform = this.transform;
 
+        distanceRobot = Vector3.Distance(this.transform.localPosition, camera.transform.localPosition);
+        
         transform.Translate(0, 0, speed);
 
-        if (transform.localPosition.x > rangePositionMaxX || 
-            transform.localPosition.x < rangePositionMiniX || 
-            transform.localPosition.z > rangePositionMaxZ || 
-            transform.localPosition.z < rangePositionMiniZ)
+        if (distanceRobot > 1000)
         {
-            transform.localPosition = startPosition.transform.position;
+            ResetRobotPosition();
         }
+    }
+
+    private void ResetRobotPosition()
+    {
+        float resetPositionX = camera.transform.localPosition.x;
+        float resetPositionZ = camera.transform.localPosition.z;
+
+        transform.position = new Vector3(resetPositionX, 300, resetPositionZ);
     }
 }
