@@ -16,6 +16,10 @@ public class RobotMove : MonoBehaviour
 
     [SerializeField] private GameObject rangeObjectMiniZ;
 
+    [SerializeField] private GameObject Camera;
+
+    [SerializeField] private GameObject robot;
+
     private float rangePositionMaxX;
 
     private float rangePositionMiniX;
@@ -34,6 +38,7 @@ public class RobotMove : MonoBehaviour
 
     void Update()
     {
+        Instantiate(robot);
         Transform transform = this.transform;
 
         transform.Translate(0, 0, speed);
