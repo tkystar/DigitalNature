@@ -6,7 +6,6 @@ using UnityEngine;
 public class RobotMove : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private GameObject startPosition;
 
     [SerializeField] private GameObject camera;
 

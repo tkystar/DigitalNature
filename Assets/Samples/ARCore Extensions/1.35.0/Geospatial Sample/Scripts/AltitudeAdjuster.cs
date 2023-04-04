@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine.Serialization;
 
 namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 {
@@ -15,31 +16,68 @@ namespace Google.XR.ARCoreExtensions.Samples.Geospatial
 
     public class AltitudeAdjuster : MonoBehaviour
     {
-        private Button valueUpButton;
-        private Button valueDownButton;
+        private Button xUpButton;
+        private Button xDownButton;
+        private Button yUpButton;
+        private Button yDownButton;
+        private Button zUpButton;
+        private Button zDownButton;
 
-        public float moveUnitY;
+        public float moveUnit;
 
 
         private void Start()
         {
-            valueUpButton = GameObject.Find("ValueUpButton").GetComponent<Button>();
-            valueUpButton.onClick.AddListener(ClickedUpButton);
+            yUpButton = GameObject.Find("yUpButton").GetComponent<Button>();
+            yUpButton.onClick.AddListener(ClickedYUpButton);
             
-            valueDownButton = GameObject.Find("ValueDownButton").GetComponent<Button>();
-            valueDownButton.onClick.AddListener(ClickedDownButton);
+            yDownButton = GameObject.Find("yDownButton").GetComponent<Button>();
+            yDownButton.onClick.AddListener(ClickedYDownButton);
+            
+            xUpButton = GameObject.Find("xUpButton").GetComponent<Button>();
+            xUpButton.onClick.AddListener(ClickedXUpButton);
+            
+            xDownButton = GameObject.Find("xDownButton").GetComponent<Button>();
+            xDownButton.onClick.AddListener(ClickedXDownButton);
+            
+            //Z
+            zUpButton = GameObject.Find("zUpButton").GetComponent<Button>();
+            zUpButton.onClick.AddListener(ClickedZUpButton);
+            
+            zDownButton = GameObject.Find("zDownButton").GetComponent<Button>();
+            zDownButton.onClick.AddListener(ClickedZDownButton);
         }
 
-        private void ClickedUpButton()
+        private void ClickedYUpButton()
         {
-            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + moveUnitY,
+            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + moveUnit,
                 transform.position.z);
         }
 
-        private void ClickedDownButton()
+        private void ClickedYDownButton()
         {
-            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y - moveUnitY,
+            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y - moveUnit,
                 transform.position.z);
+        }
+        
+        private void ClickedXUpButton()
+        {
+            gameObject.transform.position = new Vector3(transform.position.x + moveUnit, transform.position.y, transform.position.z);
+        }
+
+        private void ClickedXDownButton()
+        {
+            gameObject.transform.position = new Vector3(transform.position.x - moveUnit, transform.position.y, transform.position.z);
+        }
+        
+        private void ClickedZUpButton()
+        {
+            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveUnit);
+        }
+
+        private void ClickedZDownButton()
+        {
+            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveUnit);
         }
     }
 }

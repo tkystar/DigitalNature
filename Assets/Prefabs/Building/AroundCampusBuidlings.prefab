@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dad00c0146064010b9a0f77d419cb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveUnitY: 0.3
+  moveUnit: 0.3
 --- !u!82 &5579319915293022100
 AudioSource:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ PrefabInstance:
     - target: {fileID: 3643971933279594920, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a2dc83a8c588742b587ed63c413408b6, type: 2}
+      objectReference: {fileID: 2100000, guid: e23dad9e19885422fafcdc2ce10e9f85, type: 2}
     - target: {fileID: 5182812296074940746, guid: 94b671ae1c2af4b72927b62d52b36825, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15717.2
