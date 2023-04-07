@@ -812,6 +812,37 @@ Transform:
   m_Father: {fileID: 1451910695}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &88940574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 88940575}
+  m_Layer: 5
+  m_Name: OriginPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &88940575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88940574}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1179433286}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &128470959
 GameObject:
   m_ObjectHideFlags: 0
@@ -5054,6 +5085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ade36c6d69ace4937a92e13df95c7a8a, type: 3}
+--- !u!4 &1179433286 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7117661644000714883, guid: ade36c6d69ace4937a92e13df95c7a8a, type: 3}
+  m_PrefabInstance: {fileID: 1179433285}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1179433287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7854887717761051286, guid: ade36c6d69ace4937a92e13df95c7a8a, type: 3}
@@ -7337,7 +7373,6 @@ MonoBehaviour:
   - {fileID: 4085048597462626407, guid: 83e61c884a7cf4ab3a5f1b9fa96d550d, type: 3}
   - {fileID: 8510792852030358853, guid: f1085dea99cbf44b89025d599b420119, type: 3}
   - {fileID: 5730963589109733557, guid: ae5246e4505234095906091ec0d44037, type: 3}
-  - {fileID: 9085407552116322936, guid: 5d6481f80a7dd4d8eae33464e5f6244b, type: 3}
   groundPlants:
   - {fileID: 1147340600907421163, guid: b7623ef60629d4d8eabab8268699e5dc, type: 3}
   - {fileID: 6026382642645420850, guid: 5a02eb82a43a3434bb67e873c9db9aa5, type: 3}
@@ -7353,7 +7388,7 @@ MonoBehaviour:
   - {fileID: 6743086270741394967, guid: 4c4f2991edac7472abe55104f280c846, type: 3}
   - {fileID: 7396792604989011659, guid: 6f2e5a52326f842d68396953077c5619, type: 3}
   audio: {fileID: 1761716602}
-  hitSE: {fileID: 8300000, guid: 98edee7a3601d4421844035c1274249f, type: 3}
+  hitSE: {fileID: 8300000, guid: 1dfa9f01b364c43638f6076f6074dd6c, type: 3}
   particlePrefab: {fileID: 1973975938160488600, guid: 5eb36d69cabbc45c1b8de577116a6d99, type: 3}
   CurrentObjectType: 0
   parent: {fileID: 2041583307}
@@ -8023,6 +8058,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reticlePrefab: {fileID: 1973975938160488600, guid: 5eb36d69cabbc45c1b8de577116a6d99, type: 3}
+  rayOriginPosition: {fileID: 88940575}
+  buildingTag: Building
+  groundTag: Ground
+  maxDistance: 1000
 --- !u!1 &1816815736
 GameObject:
   m_ObjectHideFlags: 0
