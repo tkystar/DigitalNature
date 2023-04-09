@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9085407552116322936
+--- !u!1 &4883497557641409791
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8457208852645619906}
-  - component: {fileID: 4096378029054285627}
+  - component: {fileID: 5228252055327764037}
+  - component: {fileID: 362877537778504124}
   m_Layer: 0
   m_Name: IvyPreset06
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8457208852645619906
+--- !u!4 &5228252055327764037
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9085407552116322936}
-  m_LocalRotation: {x: -0.67824113, y: 0.24396293, z: 0.17853108, w: 0.66977435}
-  m_LocalPosition: {x: 0.00095152855, y: 0, z: 0.00426355}
-  m_LocalScale: {x: 54.039143, y: 159.88808, z: 54.039146}
+  m_GameObject: {fileID: 4883497557641409791}
+  m_LocalRotation: {x: -0.005986899, y: 0.0462673, z: 0.2987484, w: 0.9531909}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 54.03913, y: 159.88808, z: 54.03914}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 4055880034206981434}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -95.348, y: -65.225006, z: 100.029}
---- !u!137 &4096378029054285627
+--- !u!137 &362877537778504124
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9085407552116322936}
+  m_GameObject: {fileID: 4883497557641409791}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,3 +85,35 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.030443996, y: -0.011407436, z: -0.0026958077}
     m_Extent: {x: 0.040064827, y: 0.014059219, z: 0.002857312}
   m_DirtyAABB: 0
+--- !u!1 &8152397001896178563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4055880034206981434}
+  m_Layer: 0
+  m_Name: IvyPreset06
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4055880034206981434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8152397001896178563}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -20.87, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5228252055327764037}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}

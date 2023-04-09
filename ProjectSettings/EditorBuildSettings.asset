@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Samples/ARCore Extensions/1.35.0/Geospatial Sample/Scenes/Geospatial.unity
     guid: 1ed15e9657253406185e4b2c7c5a4fc4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Nakano.unity
     guid: e794b88d55e0b46c7ac621ea61e8d6a1
   - enabled: 0
@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Test/InstantiateTest.unity
     guid: 4e88dcced5a2e49e9a3db235d059970f
+  - enabled: 1
+    path: Assets/Scenes/NakanoStation.unity
+    guid: 09e4ad4a352fd42f187ee4e0b102b921
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 938ce17c6830c4dbaa11878026c0b853, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b1aa138eda57a4854a933e4cae133c70, type: 2}

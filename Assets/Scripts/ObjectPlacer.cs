@@ -36,6 +36,8 @@ public class ObjectPlacer : MonoBehaviour
     public ObjectType CurrentObjectType;
 
     [SerializeField] private GameObject parent;
+
+    [SerializeField] private float buffer;
     
     // Start is called before the first frame update
     void Start()
@@ -54,19 +56,19 @@ public class ObjectPlacer : MonoBehaviour
         {
             if (collisionPosition == CollisionPosition.Building)
             {
-                GameObject instance = Instantiate(buildingPlants[Random.Range(0,buildingPlants.Length)], position, Quaternion.LookRotation(direction), parent.transform);
+                GameObject instance = Instantiate(buildingPlants[Random.Range(0,buildingPlants.Length)], position + (direction * buffer), Quaternion.LookRotation(direction), parent.transform);
                 PlayScaleAnimation(instance);
             }
             else if (collisionPosition == CollisionPosition.Ground)
             {
-                GameObject instance = Instantiate(groundPlants[Random.Range(0,groundPlants.Length)], position, Quaternion.identity, parent.transform);
+                GameObject instance = Instantiate(groundPlants[Random.Range(0,groundPlants.Length)], position + (direction * buffer), Quaternion.identity, parent.transform);
                 PlayScaleAnimation(instance);
             }
             
         }
         else if (CurrentObjectType == ObjectType.Neon)
         {
-            GameObject instance = Instantiate(placedNeon[Random.Range(0,placedNeon.Length)], position, Quaternion.LookRotation(direction), parent.transform);
+            GameObject instance = Instantiate(placedNeon[Random.Range(0,placedNeon.Length)], position + (direction * buffer), Quaternion.LookRotation(direction), parent.transform);
             PlayScaleAnimation(instance);
 
         }
@@ -76,7 +78,7 @@ public class ObjectPlacer : MonoBehaviour
 
     public IEnumerator PlayParticle(Vector3 position, Vector3 direction)
     {
-        GameObject particle = Instantiate(particlePrefab, position, Quaternion.LookRotation(direction));
+        GameObject particle = Instantiate(particlePrefab, position + (direction * buffer), Quaternion.LookRotation(direction));
         yield return new WaitForSeconds(1.0f);
         particle.transform.DOScale(Vector3.zero, 1.0f);
     }
@@ -85,7 +87,7 @@ public class ObjectPlacer : MonoBehaviour
     {
         Vector3 originalScale = scaledObj.transform.localScale;
         scaledObj.transform.localScale = Vector3.zero;
-        scaledObj.transform.DOScale(Random.Range(0.8f, 1.2f) * originalScale, 1f).SetEase(Ease.InCubic);
+        scaledObj.transform.DOScale(Random.Range(0.9f, 1.1f) * originalScale, 1f).SetEase(Ease.InCubic);
     }
 
     private void PlaySE(AudioClip clip)

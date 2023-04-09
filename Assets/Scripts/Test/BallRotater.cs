@@ -24,6 +24,8 @@ public class BallRotater : MonoBehaviour
     [SerializeField] private GameObject parentBall;
 
     public BallType SelectedBallType;
+
+    [SerializeField] private AudioSource swipeSound;
     
     // Start is called before the first frame update
     void Start()
@@ -57,24 +59,6 @@ public class BallRotater : MonoBehaviour
 
         }
         
-        /*
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (GameObject.FindWithTag("PlantBall").GetComponent<Collider>().Raycast(
-                    mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitPlantsBall02, Mathf.Infinity))
-            {
-                SelectedBallType = BallType.PlantBall;
-
-            }
-            else if (GameObject.FindWithTag("NeonBall").GetComponent<Collider>().Raycast(
-                         mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hitNeonBall02, Mathf.Infinity))
-            {
-                SelectedBallType = BallType.NeonBall;
-
-            }
-        }
-        */
-
     }
 
     
@@ -82,6 +66,7 @@ public class BallRotater : MonoBehaviour
 
     private void Slide(BallType ballType)
     {
+        
         if (ballType == BallType.PlantBall)
         {
             parentBall.transform.DOLocalMoveX( parentBall.transform.localPosition.x + moveUnit, 0.3f);
@@ -91,10 +76,9 @@ public class BallRotater : MonoBehaviour
         {
             parentBall.transform.DOLocalMoveX( parentBall.transform.localPosition.x - moveUnit, 0.3f);
             StartCoroutine(Set(ballType));
-
         }
         
-        
+        swipeSound.Play();
 
     }
 

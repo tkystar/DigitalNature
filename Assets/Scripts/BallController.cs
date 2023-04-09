@@ -40,6 +40,14 @@ public class BallController : MonoBehaviour
     public float force;
 
     private GUIStyle style;
+
+    [SerializeField] private AudioSource pullSound;
+
+    private bool isPulling;
+
+    [SerializeField] private AudioSource shootSound;
+
+    [SerializeField] private float pullThreshold;
     
     
     // Start is called before the first frame update
@@ -67,6 +75,7 @@ public class BallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(!gameObject.CompareTag(ballRotater.SelectedBallType.ToString()))
         {
             return;
@@ -90,12 +99,16 @@ public class BallController : MonoBehaviour
                  GetPlayerHitPoint().y, transform.position.z);
             launchVelocity = pinballGenerator.mainCamera.transform.forward *
                              (transform.position - initialPosition).magnitude * force;
+            
+            PlayPullSound((transform.position - initialPosition).magnitude);
 
-            //hitPointMarker.GetComponent<hitPointMarker>().SetPosition();
+            
 
 
             if (Input.GetMouseButtonUp(0))
             {
+                shootSound.Play();
+                isPulling = false;
                 isDragging = false;
                 dragEndPosition =
                     pinballGenerator.mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
@@ -111,6 +124,7 @@ public class BallController : MonoBehaviour
             }
         }
     }
+    
 
     public void AddForce(Vector3 launchVelocity)
     {
@@ -197,5 +211,29 @@ public class BallController : MonoBehaviour
         }
         
         return transform.position;
+    }
+
+    private void PlayPullSound(float pullLength)
+    {
+        if (pullLength < pullThreshold)
+        {
+            isPulling = false;
+        }
+
+        //Debug.Log(pullLength);
+        //既に引っ張られていたらreturn
+        if(isPulling) return;
+        
+        if (pullLength > pullThreshold)
+        {
+            isPulling = true;
+            Debug.Log("pull");
+            pullSound.Play();
+        }
+        else
+        {
+            isPulling = false;
+        }
+
     }
 }
